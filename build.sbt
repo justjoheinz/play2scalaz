@@ -14,6 +14,8 @@ parallelExecution := false
 
 scalacOptions ++= Seq("-language:_", "-deprecation", "-unchecked", "-Xlint")
 
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaCheck, "-maxSize", "10", "-workers", "1")
+
 val scalazV = "7.0.5"
 
 libraryDependencies ++= Seq(
