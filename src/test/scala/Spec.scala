@@ -145,13 +145,13 @@ class JsValueSpec extends SpecBase{
   import play2scalaz._
 
   private[this] val jsValuePrimitivesArb: Arbitrary[JsValue] =
-      Arbitrary(Gen.oneOf(
-        JsNull,
-        gen[String].map(JsUndefined.apply(_)),
-        gen[Boolean].map(JsBoolean),
-        gen[BigDecimal].map(JsNumber),
-        gen[String].map(JsString)
-      ))
+    Arbitrary(Gen.oneOf(
+      JsNull,
+      gen[String].map(JsUndefined.apply(_)),
+      gen[Boolean].map(JsBoolean),
+      gen[BigDecimal].map(JsNumber),
+      gen[String].map(JsString)
+    ))
 
   private[this] val jsObjectArb1: Arbitrary[JsObject] =
     Arbitrary(Gen.choose(0, 4).flatMap(n =>
@@ -160,7 +160,7 @@ class JsValueSpec extends SpecBase{
         Arbitrary.arbTuple2(
           arb[String], jsValuePrimitivesArb
         ).arbitrary
-      ).map(JsObject)
+      ).map(l => JsObject(l.distinct))
     ))
 
   private[this] val jsArrayArb1: Arbitrary[JsArray] =
@@ -180,7 +180,7 @@ class JsValueSpec extends SpecBase{
       Gen.listOfN(
         n,
         Arbitrary.arbTuple2(arb[String], jsValueArb).arbitrary
-      ).map(JsObject)
+      ).map(l => JsObject(l.distinct))
     ))
 
   implicit val jsArrayArb: Arbitrary[JsArray] =

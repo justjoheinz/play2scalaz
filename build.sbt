@@ -10,6 +10,8 @@ licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
 initialCommands in console := "import play2scalaz._"
 
+parallelExecution := false
+
 scalacOptions ++= Seq("-language:_", "-deprecation", "-unchecked", "-Xlint")
 
 val scalazV = "7.0.5"
